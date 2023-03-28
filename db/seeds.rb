@@ -7,3 +7,9 @@ Article.create([
     { title: '5 Simple Exercises to Improve Posture', description: 'Say goodbye to back pain and improve your posture with these easy exercises.', image: 'https://example.com/images/posture.png', category: 'Fitness' }
   ])
   
+
+# seed Author
+
+# Author.create([
+#   {name: "Chef Dennis Littley", email: }
+# ])
