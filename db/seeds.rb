@@ -1,4 +1,5 @@
 # Seed articles
+puts 'Seeding ...'
 Article.create([
     { title: 'How to Make a Perfect Cup of Coffee', description: 'Learn the secrets to making a delicious cup of coffee at home.', image: 'https://example.com/images/coffee.png', category: 'Food & Drink' },
     { title: 'The Benefits of Meditation', description: 'Discover how meditation can improve your mental health and well-being.', image: 'https://example.com/images/meditation.png', category: 'Self Improvement' },
@@ -13,3 +14,5 @@ Article.create([
 # Author.create([
 #   {name: "Chef Dennis Littley", email: }
 # ])
+
+puts '✅ Done Seeding'
