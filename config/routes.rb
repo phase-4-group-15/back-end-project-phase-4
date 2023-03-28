@@ -12,5 +12,6 @@ Rails.application.routes.draw do
   # end
 
   # author
-  get '/authors/:id', to: 'authors#index'
+  get '/authors/articles', to: 'authors#index'
+  get '/authors/:id', to: 'authors#show'
 end
