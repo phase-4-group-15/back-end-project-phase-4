@@ -1,2 +1,12 @@
 class ApplicationController < ActionController::API
+
+    rescue_from StandardError, with: :standard_error
+
+    def app_response(message: 'success', status: 200, data: nil)
+        render json: {
+            message: message,
+            data: data
+        }, status: status
+    end
+    
 end
