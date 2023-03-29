@@ -11,7 +11,7 @@ Rails.application.routes.draw do
 
   # article
   resources :articles
-  resources :authors, only: [:show] do
+  resources :authors, only: [:show, :index] do
     resources :articles, only: [:index]
   end
   # resources :users, only: [:show] do
@@ -26,7 +26,7 @@ Rails.application.routes.draw do
   post '/authors/login', to: 'authors#login'
 
   resources :articles, only:[:index, :show] do
-    resources :reviews, only:[:update, :create]
+    resources :reviews, only:[:index, :update, :create]
   end
 
   # reviews

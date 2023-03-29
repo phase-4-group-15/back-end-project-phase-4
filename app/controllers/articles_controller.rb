@@ -4,17 +4,21 @@ class ArticlesController < ApplicationController
 
   def index
     user = User.find_by(id: session[:user_id])
-    if user
+    author = Author.find_by(id: session[:user_id])
+
+    if user || author
       articles = Article.all
       render json: articles
     else
-      render json: article.errors, status: :unprocessable_entity
+      render json: { errors: ["You have no Articles. Create an article"] }, status: :unprocessable_entity
     end
   end
 
   def show
     user = User.find_by(id: session[:user_id])
-    if user
+    author = Author.find_by(id: session[:user_id])
+
+    if user || author
       article = Article.find(params[:id])
       render json: @article
     else

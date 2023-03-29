@@ -5,20 +5,20 @@ class AuthorsController < ApplicationController
 
     # signup
     def create
-        user = Author.create!(author_params)
-        if user.valid?
-            session[:user_id] = user.id
-            render json: user, status: :created
+        author = Author.create!(author_params)
+        if author.valid?
+            session[:user_id] = author.id
+            render json: author, status: :created
         else
             render json: { errors: ["Wrong password. Please try again.", "User not found. Please sign up"] }, status: :unauthorized
         end
     end
 
     def login
-        user = Author.find_by(name: params[:name])
-        if user&.authenticate(params[:password])
-            session[:user_id] = user.id
-            render json: user, status: :created
+        author= Author.find_by(name: params[:name])
+        if author&.authenticate(params[:password])
+            session[:user_id] = author.id
+            render json: author, status: :created
         else
             render json: { errors: ["Wrong password. Please try again.", "User not found. Please sign up"] }, status: :unauthorized
         end
@@ -31,12 +31,12 @@ class AuthorsController < ApplicationController
 
     # get '/authors/:id'
     def show
-        author = Author.find(params[:id])
+        author = Author.find_by(id: session[:user_id])
         if author
-            article = author.article.all
-            render json: article
+            article = Article.all
+            render json: article, include: [:reviews], status: :ok
         else
-            render json: {error: "Author cannot be found"}, status: :unprocessable_entity
+            render json: {error: "Author article cannot be found"}, status: :unprocessable_entity
         end
     end
     
