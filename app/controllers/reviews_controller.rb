@@ -15,7 +15,7 @@ class ReviewsController < ApplicationController
             review.update(review_update_params)
         render json: review
         else
-            render json: { error: "Bird not found" }, status: :not_found
+            render json: { error: "Review not found" }, status: :not_found
         end
     end
 end

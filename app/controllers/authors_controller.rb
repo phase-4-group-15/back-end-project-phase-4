@@ -23,10 +23,21 @@ class AuthorsController < ApplicationController
             render json: { errors: ["Wrong password. Please try again.", "User not found. Please sign up"] }, status: :unauthorized
         end
     end
+
+    def logout
+        session.delete :user_id
+        head :no_content
+    end
+    
     # get '/articles'
     def index
-        articles = Article.all
-        render json: articles
+        author = Author.find_by(id: session[:user_id])
+        if author
+            article = Article.all
+            render json: article, include: [:reviews], status: :ok
+        else
+            render json: { error: "You are not logged in"}, status: :unprocessable_entity
+        end
     end
 
     # get '/authors/:id'

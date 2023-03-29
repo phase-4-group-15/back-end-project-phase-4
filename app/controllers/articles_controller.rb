@@ -10,7 +10,7 @@ class ArticlesController < ApplicationController
       articles = Article.all
       render json: articles
     else
-      render json: { errors: ["You have no Articles. Create an article"] }, status: :unprocessable_entity
+      render json: { errors: ["You are not logged in."] }, status: :unprocessable_entity
     end
   end
 

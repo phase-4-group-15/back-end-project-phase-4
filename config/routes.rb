@@ -11,9 +11,11 @@ Rails.application.routes.draw do
 
   # article
   resources :articles
-  resources :authors, only: [:show, :index] do
-    resources :articles, only: [:index]
+  
+  resources :articles, only:[:index, :show] do
+    resources :reviews, only:[:index, :update, :create]
   end
+  
   # resources :users, only: [:show] do
   #   resources :articles, only: [:index]
   # end
@@ -24,10 +26,12 @@ Rails.application.routes.draw do
   get '/authors/:id', to: 'authors#show'
   post '/authors/signup', to: 'authors#create'
   post '/authors/login', to: 'authors#login'
+  delete '/authors/logout', to: 'authors#logout'
 
-  resources :articles, only:[:index, :show] do
-    resources :reviews, only:[:index, :update, :create]
+  resources :authors, only: [:show, :index] do
+    resources :articles, only: [:index]
   end
+ 
 
   # reviews
   resources :reviews
