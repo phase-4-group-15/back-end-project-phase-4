@@ -5,8 +5,12 @@ class UsersController < ApplicationController
   
     def create
       user = User.create!(permitted_params)
-      session[:user_id] = user.id
-      render json: user, serializer: UserCreateMethodSerializer, status: :created
+      if user.valid?
+        session[:user_id] = user.id
+        render json: user, serializer: UserSerializer, status: :created
+      else
+        render json: { error: "not valid data" }, status: :unprocessable_entity
+      end
     end
   
     def show
@@ -17,7 +21,7 @@ class UsersController < ApplicationController
       user = User.find_by(username: params[:username])
       if user && user.authenticate(params[:password])
         session[:user_id] = user.id
-        render json: user, serializer: UserCreateMethodSerializer
+        render json: user, serializer: UserSerializer
       else
         render json: { errors: "Invalid username or password" }, status: :unauthorized
       end

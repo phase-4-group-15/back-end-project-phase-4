@@ -2,7 +2,7 @@ Rails.application.routes.draw do
 
   # user
   resources :users
-  post '/users', to: 'users#register'
+  post '/users', to: 'users#create'
   post '/users/login', to: 'users#login'
 
   # article
