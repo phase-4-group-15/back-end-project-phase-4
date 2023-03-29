@@ -10,9 +10,9 @@ class ArticlesController < ApplicationController
     end
   
     def create
-      article = Article.new(article_params)
+      article = Article.create(article_params)
   
-      if article.save
+      if article
         render json: article, status: :created
       else
         render json: article.errors, status: :unprocessable_entity
@@ -37,7 +37,7 @@ class ArticlesController < ApplicationController
     private
   
     def article_params
-      params.require(:article).permit(:title, :description, :image, :category)
+      params.permit(:title, :description, :image, :category, :author)
     end
   end
   

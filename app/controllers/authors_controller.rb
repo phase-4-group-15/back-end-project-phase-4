@@ -17,5 +17,10 @@ class AuthorsController < ApplicationController
         end
     end
     
+    # get 'authors'
+    def author_index
+        author = Author.all
+        render json: author
+    end
     
 end

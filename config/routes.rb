@@ -7,11 +7,12 @@ Rails.application.routes.draw do
 
   # article
   resources :articles
-  # resources :authors, only: [:show] do
-  #   resources :articles, only: [:index]
-  # end
+  resources :authors, only: [:show] do
+    resources :articles, only: [:index]
+  end
 
   # author
+  get '/authors', to: 'authors#author_index'
   get '/authors/articles', to: 'authors#index'
   get '/authors/:id', to: 'authors#show'
 end
