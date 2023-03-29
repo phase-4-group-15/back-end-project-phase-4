@@ -14,7 +14,22 @@ article3 = Article.create!( title: '10 Must-Visit Destinations for Nature Lovers
 article4 = Article.create!( title: 'The Future of Artificial Intelligence', description: 'Get a glimpse into the exciting world of AI and its potential impact on society.', image: 'https://example.com/images/ai.png', category: 'Technology', author_id: author4.id)
 article5 = Article.create!( title: '5 Simple Exercises to Improve Posture', description: 'Say goodbye to back pain and improve your posture with these easy exercises.', image: 'https://example.com/images/posture.png', category: 'Fitness', author_id: author5.id )
   
+# seeding user
+user1 = User.create!(username: "mount", email: "mount@gmail.com", password: "mkjr12", password_confirmation: "mkjr12")
+user2 = User.create!(username: "elgon", email: "elgon@gmail.com", password: "JaneWandia", password_confirmation: "JaneWandia")
+user3 = User.create!(username: "muigai", email: "muigai@gmail.com", password: "12345", password_confirmation: "12345")
 
+review1 = Review.create!(rating: rand(0..5), comment: Faker::Quote.matz, article_id: article1.id, user_id: user1.id)
+review2 = Review.create!(rating: rand(0..5), comment: Faker::Quote.matz, article_id: article2.id, user_id: user2.id)
+review3 = Review.create!(rating: rand(0..5), comment: Faker::Quote.matz, article_id: article3.id, user_id: user3.id)
+review4 = Review.create!(rating: rand(0..5), comment: Faker::Quote.matz, article_id: article4.id, user_id: user1.id)
+review5 = Review.create!(rating: rand(0..5), comment: Faker::Quote.matz, article_id: article5.id, user_id: user2.id)
+review6 = Review.create!(rating: rand(0..5), comment: Faker::Quote.matz, article_id: article1.id, user_id: user3.id)
+review7 = Review.create!(rating: rand(0..5), comment: Faker::Quote.matz, article_id: article2.id, user_id: user1.id)
+review8 = Review.create!(rating: rand(0..5), comment: Faker::Quote.matz, article_id: article3.id, user_id: user2.id)
+review9 = Review.create!(rating: rand(0..5), comment: Faker::Quote.matz, article_id: article4.id, user_id: user3.id)
+review10 = Review.create!(rating: rand(0..5), comment: Faker::Quote.matz, article_id: article5.id, user_id: user1.id)
+review11 = Review.create!(rating: rand(0..5), comment: Faker::Quote.matz, article_id: article1.id, user_id: user2.id)
 
 
 puts '✅ Done Seeding'
