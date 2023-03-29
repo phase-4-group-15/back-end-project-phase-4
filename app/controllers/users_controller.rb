@@ -3,6 +3,7 @@ class UsersController < ApplicationController
     skip_before_action only: :create
     wrap_parameters format: [:json]
   
+    # post '/users/signup'
     def create
       user = User.create!(permitted_params)
       if user.valid?
@@ -13,18 +14,26 @@ class UsersController < ApplicationController
       end
     end
   
+    # post '/me/:id'
     def show
-      render json: @current_user
+      user = User.find_by!(id: session[:user_id])
+      if user
+        article = user.article.all
+        render json: @current_user, include: [:reviews], status: :ok
+      else
+        render json: { error: "You are not logged in" }, status: :unprocessable_entity
+      end
     end
   
+    # get '/users/articles'
     def index
-      articles = Article.all
-      render json: articles, include: [:reviews], status: :ok
-    end
-  
-    def show
-      article = Article.find(params[:id])
-      render json: article, include: [:reviews], status: :ok
+      user = User.find_by!(id: session[:user_id])
+      if user 
+        articles = Article.all
+        render json: articles, include: [:reviews], status: :ok
+      else
+        render json: { error: "You are not logged in"}, status: :unprocessable_entity
+      end
     end
   
     def update

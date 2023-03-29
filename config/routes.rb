@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   post '/users/signup', to: 'users#create'
   post '/users/login', to: 'sessions#create'
   delete '/users/logout', to: 'sessions#destroy'
+  get '/users/articles', to: 'users#index'
 
   # article
   resources :articles
@@ -23,13 +24,13 @@ Rails.application.routes.draw do
   # author
   get '/authors', to: 'authors#author_index'
   get '/authors/articles', to: 'authors#index'
-  get '/authors/:id', to: 'authors#show'
+  get '/authors/articles/:id', to: 'authors#show'
   post '/authors/signup', to: 'authors#create'
   post '/authors/login', to: 'authors#login'
   delete '/authors/logout', to: 'authors#logout'
 
   resources :authors, only: [:show, :index] do
-    resources :articles, only: [:index]
+    resources :articles, only: [:index, :show]
   end
  
 

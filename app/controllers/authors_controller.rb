@@ -29,7 +29,7 @@ class AuthorsController < ApplicationController
         head :no_content
     end
     
-    # get '/articles'
+    # get '/authors/articles'
     def index
         author = Author.find_by(id: session[:user_id])
         if author
@@ -44,7 +44,7 @@ class AuthorsController < ApplicationController
     def show
         author = Author.find_by(id: session[:user_id])
         if author
-            article = Article.all
+            article = author.articles.all
             render json: article, include: [:reviews], status: :ok
         else
             render json: {error: "Author article cannot be found"}, status: :unprocessable_entity
