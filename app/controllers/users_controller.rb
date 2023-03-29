@@ -1,34 +1,34 @@
 class UsersController < ApplicationController
-    
-    def register 
-        user = User.create(user_params)
-        if user.valid?
-            save_user(user.id)
-            app_response(message: 'Registration was successfull', data: user)
-        else
-            app_response(message: 'Something went wrong during registration', status: :unprocessable_entity, data: user.errors)
-        end
+    rescue_from ActiveRecord::RecordInvalid, with: :invalid_message
+    skip_before_action only: :create
+    wrap_parameters format: [:json]
+    def create
+        user = User.create!(permitted_params)
+        session[:user_id] = user.id
+        render json: user, serializer: UserCreateMethodSerializer, status: :created
+    end
+
+    def show
+        render json: @current_user
     end
 
     def login
-        user = User.find_by(user_params)
-        if user&.authenticate(user_params[:password])
-            save_user(user.id)
-            app_response(message: "Login was successfull", status: :ok, data: { user: user})
+        user = User.find_by(username: params[:username])
+        if user && user.authenticate(params[:password])
+          session[:user_id] = user.id
+          render json: user, serializer: UserCreateMethodSerializer
         else
-            app_response(message: "Invalid username/email or password", status: :unauthorized)
+          render json: { errors: "Invalid username or password" }, status: :unauthorized
         end
-        
     end
 
-    def logout
-        remove_user
-        app_response(message: 'Logout successful')
+    private  
+
+    def permitted_params
+        params.permit(:username, :email, :password, :password_confirmation)
     end
 
-    private
-
-    def user_params 
-        params.permit(:username, :email, :password)
+    def invalid_message(invalid)
+        render json: {errors: invalid.record.errors.full_messages}, status: :unprocessable_entity
     end
 end
