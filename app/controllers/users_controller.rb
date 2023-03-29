@@ -17,16 +17,6 @@ class UsersController < ApplicationController
       render json: @current_user
     end
   
-    def login
-      user = User.find_by(username: params[:username])
-      if user && user.authenticate(params[:password])
-        session[:user_id] = user.id
-        render json: user, serializer: UserSerializer
-      else
-        render json: { errors: "Invalid username or password" }, status: :unauthorized
-      end
-    end
-  
     def index
       articles = Article.all
       render json: articles, include: [:reviews], status: :ok
@@ -51,7 +41,7 @@ class UsersController < ApplicationController
     private
     
     def permitted_params
-        params.permit(:username, :password, :email)
+        params.permit(:username, :password, :password_confirmation, :email)
     end
     
     def invalid_message(exception)

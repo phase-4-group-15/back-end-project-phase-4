@@ -2,29 +2,34 @@ Rails.application.routes.draw do
 
   # user
   resources :users
-  post '/users', to: 'users#create'
-  post '/users/login', to: 'users#login'
+
+  get '/me/:id', to: 'users#show'
+  get '/me/:id', to: 'sessions#show'
+  post '/users/signup', to: 'users#create'
+  post '/users/login', to: 'sessions#create'
+  delete '/users/logout', to: 'sessions#destroy'
 
   # article
   resources :articles
   resources :authors, only: [:show] do
     resources :articles, only: [:index]
   end
+  # resources :users, only: [:show] do
+  #   resources :articles, only: [:index]
+  # end
 
   # author
   get '/authors', to: 'authors#author_index'
   get '/authors/articles', to: 'authors#index'
   get '/authors/:id', to: 'authors#show'
-
-
-  get '/me', to: 'users#show'
-  get '/me', to: 'sessions#show'
-  post '/signup', to: 'users#create'
-  post '/login', to: 'sessions#create'
-  delete '/logout', to: 'sessions#destroy'
+  post '/authors/signup', to: 'authors#create'
+  post '/authors/login', to: 'authors#login'
 
   resources :articles, only:[:index, :show] do
     resources :reviews, only:[:update, :create]
   end
+
+  # reviews
   resources :reviews
+
 end

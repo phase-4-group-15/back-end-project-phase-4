@@ -1,5 +1,28 @@
 class AuthorsController < ApplicationController
 
+    rescue_from ActiveRecord::RecordInvalid, with: :invalid_message
+    skip_before_action only: :create 
+
+    # signup
+    def create
+        user = Author.create!(author_params)
+        if user.valid?
+            session[:user_id] = user.id
+            render json: user, status: :created
+        else
+            render json: { errors: ["Wrong password. Please try again.", "User not found. Please sign up"] }, status: :unauthorized
+        end
+    end
+
+    def login
+        user = Author.find_by(name: params[:name])
+        if user&.authenticate(params[:password])
+            session[:user_id] = user.id
+            render json: user, status: :created
+        else
+            render json: { errors: ["Wrong password. Please try again.", "User not found. Please sign up"] }, status: :unauthorized
+        end
+    end
     # get '/articles'
     def index
         articles = Article.all
@@ -22,5 +45,14 @@ class AuthorsController < ApplicationController
         author = Author.all
         render json: author
     end
+
+    private 
+
+    def author_params 
+        params.permit(:name, :email, :password, :password_confirmation, :confirm_password)
+    end
     
+    def invalid_message(exception)
+        render json: { errors: exception.message }, status: :unprocessable_entity
+    end
 end
