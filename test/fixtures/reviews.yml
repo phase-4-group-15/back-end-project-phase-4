@@ -1,6 +1,7 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
+<<<<<<< HEAD
   rating: 1
   article: one
   user: one
@@ -9,3 +10,13 @@ two:
   rating: 1
   article: two
   user: two
+=======
+  review: MyString
+  user_id: 1
+  article_id: 1
+
+two:
+  review: MyString
+  user_id: 1
+  article_id: 1
+>>>>>>> development
