@@ -1,13 +1,14 @@
 Rails.application.routes.draw do
 
-  # user
+  # user & author
 
-  get '/me/:id', to: 'users#show'
-  post '/users/signup', to: 'users#create'
-  post '/users/login', to: 'sessions#create'
-  delete '/users/logout', to: 'sessions#destroy'
-  get '/users/articles', to: 'users#index'
-  get '/users/reviews', to: 'users#reviews'
+  # get '/me/:id', to: 'users#show'
+  post '/signup', to: 'sessions#create'
+  post '/me', to: 'sessions#show'
+  post '/login', to: 'sessions#login'
+  delete '/logout', to: 'sessions#logout'
+  get '/articles', to: 'sessions#index'
+  get '/reviews', to: 'sessions#reviews'
   
 
   # article
@@ -22,12 +23,12 @@ Rails.application.routes.draw do
   # end
 
   # author
-  get '/authors', to: 'authors#author_index'
-  get '/authors/articles', to: 'authors#index'
-  get '/authors/articles/:id', to: 'authors#show'
-  post '/authors/signup', to: 'authors#create'
-  post '/authors/login', to: 'authors#login'
-  delete '/authors/logout', to: 'authors#logout'
+  # get '/authors', to: 'authors#author_index'
+  # get '/authors/articles', to: 'authors#index'
+  # get '/authors/articles/:id', to: 'authors#show'
+  # post '/authors/signup', to: 'authors#create'
+  # post '/authors/login', to: 'authors#login'
+  # delete '/authors/logout', to: 'authors#logout'
  
 
   # reviews
