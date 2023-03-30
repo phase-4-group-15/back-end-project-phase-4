@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   
 
   # article
-  # resources :articles
+  resources :articles
   
   # resources :articles, only:[:index, :show] do
   #   resources :reviews, only:[:index, :update, :create]

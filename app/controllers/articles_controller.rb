@@ -5,7 +5,6 @@ class ArticlesController < ApplicationController
   def index
     user = User.find_by(id: session[:user_id])
     author = Author.find_by(id: session[:user_id])
-
     if user || author
       articles = Article.all
       render json: articles
@@ -28,12 +27,11 @@ class ArticlesController < ApplicationController
 
   def create
     article = Article.create(article_params)
-
     if article
       render json: article, status: :created
     else
       render json: article.errors, status: :unprocessable_entity
-    end
+    end 
   end
 
   def update
@@ -54,7 +52,7 @@ class ArticlesController < ApplicationController
   private
 
   def article_params
-    params.permit(:title, :description, :image, :category, :author)
+    params.permit(:title, :description, :image, :category)
   end
 
 end
