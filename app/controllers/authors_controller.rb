@@ -34,8 +34,8 @@ class AuthorsController < ApplicationController
     def index
         author = Author.find_by(id: session[:user_id])
         if author
-            article = Article.all
-            render json: article, include: [:reviews], status: :ok
+            articles = Article.all
+            render json: articles.to_json(only: [:title, :description, :image, :category], include: [ author: {only: [:name]} , reviews: {only: [:likes, :dislikes]}]), include: [:reviews], status: :ok
         else
             render json: { error: "You are not logged in"}, status: :unprocessable_entity
         end
@@ -58,10 +58,21 @@ class AuthorsController < ApplicationController
         render json: author
     end
 
+    def update
+        article = Article.find(params[:id])
+        review = article.reviews.find_or_initialize_by(user_id: @current_user.id)
+        review.likes = params[:likes]
+        if review.save
+              render json: article, include: [:reviews], status: :ok
+          else
+              render json: { errors: review.errors.full_messages }, status: :unprocessable_entity
+          end
+    end
+
     private 
 
     def author_params 
-        params.permit(:name, :email, :password, :password_confirmation, :confirm_password)
+        params.permit(:name, :email, :password, :password_confirmation, :bio)
     end
     
     def invalid_message(exception)

@@ -24,27 +24,19 @@ class UsersController < ApplicationController
       end
     end
 
-    # # post '/me/:id'
-    # def show
-    #   user = User.find_by!(id: session[:user_id])
-    #   if user
-    #     article = user.article.all
-    #     render json: @current_user, include: [:reviews], status: :ok
-    #   else
-    #     render json: { error: "You are not logged in" }, status: :unprocessable_entity
-    #   end
-    # end
   
     #get '/users/articles'
     def index
       user = User.find_by!(id: session[:user_id])
       if user 
         articles = Article.all
-        render json: articles, include: [:reviews], status: :ok
+        render json: articles.to_json(only: [:title, :description, :image, :category], include: [ author: {only: [:name]} , reviews: {only: [:likes, :dislikes]}]), status: :ok
       else
         render json: { error: "You are not logged in"}, status: :unprocessable_entity
       end
     end
+
+    # render json: restaurant.to_json(only: [:id, :name, :address], include: [pizzas: { except: [:created_at, :updated_at]}])
   
       #get '/users/reviews'
       def reviews
@@ -53,7 +45,7 @@ class UsersController < ApplicationController
           review = user.reviews.all
           if review
             # render json: { error: "You dont have any reviews"}, status: :not_found
-            render json: review, status: :ok 
+            render json: review.to_json(only: [:likes, :dislikes], include: [ user: {only: [:username]}, article: {only: [:title]} ]) ,status: :ok 
           else
             render json: { error: "You dont have any reviews"}, status: :not_found
             # render json: review, status: :ok 

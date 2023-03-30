@@ -3,7 +3,6 @@ Rails.application.routes.draw do
   # user
 
   get '/me/:id', to: 'users#show'
-  get '/me/:id', to: 'sessions#show'
   post '/users/signup', to: 'users#create'
   post '/users/login', to: 'sessions#create'
   delete '/users/logout', to: 'sessions#destroy'
@@ -14,9 +13,9 @@ Rails.application.routes.draw do
   # article
   # resources :articles
   
-  resources :articles, only:[:index, :show] do
-    resources :reviews, only:[:index, :update, :create]
-  end
+  # resources :articles, only:[:index, :show] do
+  #   resources :reviews, only:[:index, :update, :create]
+  # end
   
   # resources :users, only: [:show] do
   #   resources :articles, only: [:index]
@@ -29,10 +28,6 @@ Rails.application.routes.draw do
   post '/authors/signup', to: 'authors#create'
   post '/authors/login', to: 'authors#login'
   delete '/authors/logout', to: 'authors#logout'
-
-  resources :authors, only: [:show, :index] do
-    resources :articles, only: [:index, :show]
-  end
  
 
   # reviews
