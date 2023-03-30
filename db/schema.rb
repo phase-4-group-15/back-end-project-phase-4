@@ -16,19 +16,24 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_28_190815) do
     t.text "description", null: false
     t.string "image", null: false
     t.string "category", null: false
+    t.integer "author_id", null: false
+    t.integer "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "author_id", null: false
     t.index ["author_id"], name: "index_articles_on_author_id"
+    t.index ["user_id"], name: "index_articles_on_user_id"
   end
 
   create_table "authors", force: :cascade do |t|
     t.string "name", null: false
     t.text "email", null: false
     t.string "password_digest", null: false
-    t.string "confirm_password", null: false
+    t.text "bio", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "change_author", force: :cascade do |t|
   end
 
   create_table "reviews", force: :cascade do |t|
@@ -46,11 +51,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_28_190815) do
     t.string "username", null: false
     t.string "email", null: false
     t.string "password_digest", null: false
+    t.text "bio", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   add_foreign_key "articles", "authors"
+  add_foreign_key "articles", "users"
   add_foreign_key "reviews", "articles"
   add_foreign_key "reviews", "users"
 end

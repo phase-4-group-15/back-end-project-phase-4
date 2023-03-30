@@ -5,7 +5,8 @@ class CreateArticles < ActiveRecord::Migration[7.0]
       t.text :description, null: false
       t.string :image, null: false
       t.string :category, null: false
-      t.belongs_to :author, null: false, foreign_key: 
+      t.belongs_to :author, null: false, foreign_key: true
+      t.belongs_to :user, null: false, foreign_key: true
 
       t.timestamps
     end

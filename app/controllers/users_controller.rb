@@ -18,8 +18,8 @@ class UsersController < ApplicationController
     def show
       user = User.find_by!(id: session[:user_id])
       if user
-        article = user.article.all
-        render json: @current_user, include: [:reviews], status: :ok
+        article = user.articles.all
+        render json: articles, include: [:reviews], status: :ok
       else
         render json: { error: "You are not logged in" }, status: :unprocessable_entity
       end

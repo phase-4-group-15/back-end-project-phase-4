@@ -2,13 +2,14 @@ class AuthorsController < ApplicationController
 
     rescue_from ActiveRecord::RecordInvalid, with: :invalid_message
     skip_before_action only: :create 
+    wrap_parameters format: [:json]
 
     # signup
     def create
         author = Author.create!(author_params)
         if author.valid?
             session[:user_id] = author.id
-            render json: author, status: :created
+            render json: author, status: :created, 
         else
             render json: { errors: ["Wrong password. Please try again.", "User not found. Please sign up"] }, status: :unauthorized
         end
