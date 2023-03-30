@@ -4,7 +4,7 @@ class AuthorsController < ApplicationController
     skip_before_action only: :create 
     wrap_parameters format: [:json]
 
-    # signup
+    # POST '/signup'
     def create
         author = Author.create!(author_params)
         if author.valid?
@@ -18,7 +18,7 @@ class AuthorsController < ApplicationController
     def login
         author= Author.find_by(name: params[:name])
         if author&.authenticate(params[:password])
-            session[:user_id] = author.id
+            session[:author_id] = author.id
             render json: author, status: :created
         else
             render json: { errors: ["Wrong password. Please try again.", "User not found. Please sign up"] }, status: :unauthorized

@@ -3,11 +3,13 @@ class UsersController < ApplicationController
     skip_before_action only: :create
     wrap_parameters format: [:json]
   
-    # post '/users/signup'
+    # post '/signup'
     def create
+      author = Author.create!(author_params)
       user = User.create!(permitted_params)
+
       if user.valid?
-        session[:user_id] = user.id
+        session[:user_id] = user.id 
         render json: user, serializer: UserSerializer, status: :created
       else
         render json: { error: "not valid data" }, status: :unprocessable_entity
@@ -27,17 +29,15 @@ class UsersController < ApplicationController
   
     #get '/users/articles'
     def index
-      # user = User.find_by!(id: session[:user_id])
-      # if user 
-        # session[:user_id] = user.id
+      user = User.find_by!(id: session[:user_id])
+      if user 
+        session[:user_id] = user.id
         articles = Article.all
         render json: articles, status: :ok
-      # else
-      #   render json: { error: "You are not logged in"}, status: :unprocessable_entity
-      # end
+      else
+        render json: { error: "You are not logged in"}, status: :unprocessable_entity
+      end
     end
-
-    # render json: restaurant.to_json(only: [:id, :name, :address], include: [pizzas: { except: [:created_at, :updated_at]}])
   
       #get '/users/reviews'
       def reviews
