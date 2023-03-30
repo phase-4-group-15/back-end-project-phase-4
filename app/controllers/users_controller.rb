@@ -51,13 +51,13 @@ class UsersController < ApplicationController
         user = User.find_by!(id: session[:user_id])
         if user 
           review = user.reviews.all
-          # if review
+          if review
             # render json: { error: "You dont have any reviews"}, status: :not_found
             render json: review, status: :ok 
-          # else
-          #   render json: { error: "You dont have any reviews"}, status: :not_found
-          #   # render json: review, status: :ok 
-          # end
+          else
+            render json: { error: "You dont have any reviews"}, status: :not_found
+            # render json: review, status: :ok 
+          end
         else
           render json: { error: "You are not logged in"}, status: :unprocessable_entity
         end
@@ -66,7 +66,7 @@ class UsersController < ApplicationController
     def update
       article = Article.find(params[:id])
       review = article.reviews.find_or_initialize_by(user_id: @current_user.id)
-      review.rating = params[:rating]
+      review.likes = params[:likes]
       if review.save
             render json: article, include: [:reviews], status: :ok
         else
