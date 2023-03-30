@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
 
   # user
-  resources :users
 
   get '/me/:id', to: 'users#show'
   get '/me/:id', to: 'sessions#show'
@@ -9,11 +8,11 @@ Rails.application.routes.draw do
   post '/users/login', to: 'sessions#create'
   delete '/users/logout', to: 'sessions#destroy'
   get '/users/articles', to: 'users#index'
-  get '/users/reviews', to: 'users#index'
+  get '/users/reviews', to: 'users#reviews'
   
 
   # article
-  resources :articles
+  # resources :articles
   
   resources :articles, only:[:index, :show] do
     resources :reviews, only:[:index, :update, :create]

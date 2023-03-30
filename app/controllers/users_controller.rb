@@ -16,8 +16,12 @@ class UsersController < ApplicationController
   
     # get '/me/:id', to: 'users#show'
     def show
-      user = User.find(session[:user_id])
-      render json: user
+      user = User.find_by(id: session[:user_id])
+      if user
+        render json: user
+      else
+        render json: {error: "User not authorized"}, status: 401
+      end
     end
 
     # # post '/me/:id'
@@ -31,7 +35,7 @@ class UsersController < ApplicationController
     #   end
     # end
   
-    # get '/users/articles'
+    #get '/users/articles'
     def index
       user = User.find_by!(id: session[:user_id])
       if user 
@@ -42,6 +46,23 @@ class UsersController < ApplicationController
       end
     end
   
+      #get '/users/reviews'
+      def reviews
+        user = User.find_by!(id: session[:user_id])
+        if user 
+          review = user.reviews.all
+          # if review
+            # render json: { error: "You dont have any reviews"}, status: :not_found
+            render json: review, status: :ok 
+          # else
+          #   render json: { error: "You dont have any reviews"}, status: :not_found
+          #   # render json: review, status: :ok 
+          # end
+        else
+          render json: { error: "You are not logged in"}, status: :unprocessable_entity
+        end
+      end
+
     def update
       article = Article.find(params[:id])
       review = article.reviews.find_or_initialize_by(user_id: @current_user.id)
@@ -56,7 +77,7 @@ class UsersController < ApplicationController
     private
     
     def permitted_params
-        params.permit(:username, :password, :password_confirmation, :email)
+        params.permit(:username, :password, :password_confirmation, :email, :bio)
     end
     
     def invalid_message(exception)
@@ -92,16 +113,16 @@ end
 #       end
 #     end
   
-#     # get '/users/articles'
-#     def index
-#       user = User.find_by!(id: session[:user_id])
-#       if user 
-#         articles = Article.all
-#         render json: articles, include: [:reviews], status: :ok
-#       else
-#         render json: { error: "You are not logged in"}, status: :unprocessable_entity
-#       end
-#     end
+    # # get '/users/articles'
+    # def index
+    #   user = User.find_by!(id: session[:user_id])
+    #   if user 
+    #     articles = Article.all
+    #     render json: articles, include: [:reviews], status: :ok
+    #   else
+    #     render json: { error: "You are not logged in"}, status: :unprocessable_entity
+    #   end
+    # end
   
 #     def update
 #       article = Article.find(params[:id])

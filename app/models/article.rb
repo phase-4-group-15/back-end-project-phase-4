@@ -1,5 +1,7 @@
 class Article < ApplicationRecord
     belongs_to :author
+    has_many :users
+    has_many :reviews, through: :users
 
     CATEGORY = ['Food & Drink', 'Self Improvement', 'Travel', 'Technology', 'Fitness']
   
