@@ -27,13 +27,14 @@ class UsersController < ApplicationController
   
     #get '/users/articles'
     def index
-      user = User.find_by!(id: session[:user_id])
-      if user 
+      # user = User.find_by!(id: session[:user_id])
+      # if user 
+        # session[:user_id] = user.id
         articles = Article.all
-        render json: articles.to_json(only: [:title, :description, :image, :category], include: [ author: {only: [:name]} , reviews: {only: [:likes, :dislikes]}]), status: :ok
-      else
-        render json: { error: "You are not logged in"}, status: :unprocessable_entity
-      end
+        render json: articles, status: :ok
+      # else
+      #   render json: { error: "You are not logged in"}, status: :unprocessable_entity
+      # end
     end
 
     # render json: restaurant.to_json(only: [:id, :name, :address], include: [pizzas: { except: [:created_at, :updated_at]}])
