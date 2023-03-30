@@ -2,6 +2,12 @@ class UsersController < ApplicationController
     rescue_from ActiveRecord::RecordInvalid, with: :invalid_message
     skip_before_action only: :create
     wrap_parameters format: [:json]
+
+    # get '/me/:id', to: 'users#show'
+    def show
+      user = User.find(session[:user_id])
+      render json: user
+    end
   
     # post '/users/signup'
     def create
@@ -16,14 +22,16 @@ class UsersController < ApplicationController
   
     # post '/me/:id'
     def show
-      user = User.find_by!(id: session[:user_id])
+      user = User.find_by(id: session[:user_id])
+      
       if user
-        article = user.article.all
-        render json: @current_user, include: [:reviews], status: :ok
+        articles = user.articles
+        render json: { user: user, articles: articles }, include: [:reviews], status: :ok
       else
         render json: { error: "You are not logged in" }, status: :unprocessable_entity
       end
     end
+    
   
     # get '/users/articles'
     def index
