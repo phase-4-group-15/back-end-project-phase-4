@@ -20,17 +20,17 @@ article4 = Article.create!( title: 'The Future of Artificial Intelligence', desc
 article5 = Article.create!( title: '5 Simple Exercises to Improve Posture', description: 'Say goodbye to back pain and improve your posture with these easy exercises.', image: 'https://example.com/images/posture.png', category: 'Fitness', author_id: author5.id, user_id: user2.id )
 
 
-review1 = Review.create!(likes: rand(0..100), dislikes: rand(0..100), article_id: article1.id, user_id: 1)
-review2 = Review.create!(likes: rand(0..100), dislikes: rand(0..100), article_id: article2.id, user_id: 2)
-review3 = Review.create!(likes: rand(0..100), dislikes: rand(0..100), article_id: article3.id, user_id: 3)
-review4 = Review.create!(likes: rand(0..100), dislikes: rand(0..100), article_id: article4.id, user_id: 1)
-review5 = Review.create!(likes: rand(0..100), dislikes: rand(0..100), article_id: article5.id, user_id: 2)
-review6 = Review.create!(likes: rand(0..100), dislikes: rand(0..100), article_id: article1.id, user_id: 3)
-review7 = Review.create!(likes: rand(0..100), dislikes: rand(0..100), article_id: article2.id, user_id: 1)
-review8 = Review.create!(likes: rand(0..100), dislikes: rand(0..100), article_id: article3.id, user_id: 2)
-review9 = Review.create!(likes: rand(0..100), dislikes: rand(0..100), article_id: article4.id, user_id: 3)
-review10 = Review.create!(likes: rand(0..100), dislikes: rand(0..100), article_id: article5.id, user_id: 1)
-review11 = Review.create!(likes: rand(0..100), dislikes: rand(0..100),article_id: article1.id, user_id: 3)
+review1 = Review.create!( rating: rand(0..5), comment: Faker::Quote.matz, article_id: article1.id, user_id: 1)
+review2 = Review.create!( rating: rand(0..5), comment: Faker::Quote.matz, article_id: article2.id, user_id: 2)
+review3 = Review.create!( rating: rand(0..5), comment: Faker::Quote.matz, article_id: article3.id, user_id: 3)
+review4 = Review.create!( rating: rand(0..5), comment: Faker::Quote.matz, article_id: article4.id, user_id: 1)
+review5 = Review.create!( rating: rand(0..5), comment: Faker::Quote.matz, article_id: article5.id, user_id: 2)
+review6 = Review.create!( rating: rand(0..5), comment: Faker::Quote.matz, article_id: article1.id, user_id: 3)
+review7 = Review.create!( rating: rand(0..5), comment: Faker::Quote.matz, article_id: article2.id, user_id: 1)
+review8 = Review.create!( rating: rand(0..5), comment: Faker::Quote.matz, article_id: article3.id, user_id: 2)
+review9 = Review.create!( rating: rand(0..5), comment: Faker::Quote.matz, article_id: article4.id, user_id: 3)
+review10 = Review.create!( rating: rand(0..5), comment: Faker::Quote.matz, article_id: article5.id, user_id: 1)
+review11 = Review.create!( rating: rand(0..5), comment: Faker::Quote.matz,article_id: article1.id, user_id: 3)
 
 
 puts '✅ Done Seeding'
