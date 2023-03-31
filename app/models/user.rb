@@ -1,7 +1,8 @@
 class User < ApplicationRecord
     has_secure_password
+
     has_many :reviews, dependent: :destroy
-    has_many :articles, through: :reviews
+    has_many :articles
 
 
     validates :username, presence: true, uniqueness: true
