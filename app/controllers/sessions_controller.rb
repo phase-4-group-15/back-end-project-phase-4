@@ -13,11 +13,11 @@ class SessionsController < ApplicationController
 
     # logout the user
     def destroy 
-        user = User.find_by(id: session[:user_id])
-        if user 
+        # user = User.find_by(id: session[:user_id])
+        # if user 
           session.delete(:user_id)
-         else
-            render json: { errors: ["not user"] }, status: 401
-         end
+        #  else
+        #     render json: { errors: ["not user"] }, status: 401
+        #  end
     end
 end

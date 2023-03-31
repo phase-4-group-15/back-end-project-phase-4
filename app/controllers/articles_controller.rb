@@ -1,6 +1,6 @@
 class ArticlesController < ApplicationController
-    before_action :require_login
-    # , only: [:index,:show, :create, :update, :destroy]
+    before_action :require_login, except: [:index, :show, :like, :dislike, :destroy, :create  ]
+  
   
     def index
       articles = Article.all
@@ -16,15 +16,25 @@ class ArticlesController < ApplicationController
       end
     end
   
+    # def create
+    #   article = current_user.articles.build(article_params)
+    #   if article.save
+    #     render json: article, status: :created
+    #   else
+    #     render json: { errors: article.errors.full_messages }, status: :unprocessable_entity
+    #   end
+    # end
+  
+  
     def create
-      article = current_user.articles.build(article_params)
+      article = Article.new(article_params)
       if article.save
         render json: article, status: :created
       else
         render json: { errors: article.errors.full_messages }, status: :unprocessable_entity
       end
     end
-  
+
     def update
       article = Article.find_by(id: params[:id])
       if article && article.user == current_user
@@ -44,7 +54,7 @@ class ArticlesController < ApplicationController
         article.destroy
         head :no_content
       else
-        render json: { error: "Article not found or unauthorized" }, status: :not_found
+        render json: { error: " unauthorized: Not your article " }, status: :not_found
       end
     end
   
@@ -73,7 +83,7 @@ class ArticlesController < ApplicationController
     private
   
     def article_params
-      params.require(:article).permit(:title, :description, :image, :category)
+      params.require(:article).permit(:title, :description, :image, :category, :user_id)
     end
   
    

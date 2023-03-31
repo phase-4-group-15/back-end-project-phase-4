@@ -2,12 +2,12 @@ class ApplicationController < ActionController::API
   include ActionController::Cookies
 
   def current_user
-    @current_user ||= User.find_by(id: session[:user_id])
+    current_user ||= User.find_by(id: session[:user_id])
   end
 
   def require_login
     unless current_user
-      render json: { error: "You must be logged in to access this resource" }, status: :unauthorized
+      render json: { error: "You must be logged in to access this    resource" }, status: :unauthorized
     end
   end
 
