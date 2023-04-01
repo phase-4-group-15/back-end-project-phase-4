@@ -7,9 +7,11 @@ class ApplicationController < ActionController::API
 
   def require_login
     unless current_user
-      render json: { error: "You must be logged in to access this    resource" }, status: :unauthorized
+      render json: { error: "You must be logged in to access this  resource" }, status: :unauthorized
     end
   end
+  
+end
 
   # rescue_from StandardError, with: :standard_error
 
@@ -81,4 +83,3 @@ class ApplicationController < ActionController::API
     #     session[:uid] = id
     # end
 
-end

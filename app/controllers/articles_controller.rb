@@ -1,5 +1,5 @@
 class ArticlesController < ApplicationController
-    before_action :require_login, except: [:index, :show, :like, :dislike, :destroy, :create  ]
+    before_action :require_login, except: [:index, :show, :like, :dislike, :destroy, :create ]
   
   
     def index
@@ -8,13 +8,31 @@ class ArticlesController < ApplicationController
     end
   
     def show
-      article = Article.find_by(id: params[:id])
+      article = Article.includes(reviews: :user).find_by(id: params[:id])
       if article
-        render json: article
+        render json: {
+          id: article.id,
+          title: article.title,
+          description: article.description,
+          image: article.image,
+          reviews: article.reviews.map do |review|
+            {
+              id: review.id,
+              rating: review.rating,
+              comment: review.comment,
+              user: {
+                id: review.user.id,
+                name: review.user.username,
+                bio: review.user.bio
+              }
+            }
+          end
+        }
       else
         render json: { error: "Article not found" }, status: :not_found
       end
     end
+    
   
     # def create
     #   article = current_user.articles.build(article_params)
