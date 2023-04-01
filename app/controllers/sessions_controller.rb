@@ -63,7 +63,7 @@ class SessionsController < ApplicationController
 
     # GET '/articles'
     def index
-        user = User.find_by!(id: session[:user_id])
+        user = User.find_by(id: session[:user_id])
         author = Author.find_by(id: session[:user_id])
 
         articles = Article.all
@@ -73,7 +73,6 @@ class SessionsController < ApplicationController
             include: [ user: {only: [:username]}],
             include: [reviews: { only: [:user_id] }]
         )
-        reviews: 
         if user 
           session[:user_id] = user.id
           render json: art, status: :ok
@@ -89,7 +88,7 @@ class SessionsController < ApplicationController
     end
 
     # def reviews
-    #     user = User.find_by!(id: session[:user_id])
+    #     user = User.find_by(id: session[:user_id])
     #     if user 
     #       review = user.reviews.all
     #       if review
