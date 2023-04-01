@@ -8,14 +8,10 @@ class SessionsController < ApplicationController
     # POST '/signup'
     def create
         user = User.create!(user_params)
-        author = Author.create!(author_params)
 
         if user.valid?
             session[:user_id] = user.id 
             render json: user, serializer: UserSerializer, status: :created
-        elsif author.valid?
-            session[:author_id] = author.id 
-            render json: author, serializer: AuthorSerializer, status: :created
         else
             render json: { error: "not valid data" }, status: :unprocessable_entity
         end
@@ -34,14 +30,11 @@ class SessionsController < ApplicationController
     # POST '/login'
     def login
         user= User.find_by(username: params[:username])
-        author= Author.find_by(name: params[:name])
 
         if user&.authenticate(params[:password])
             session[:user_id] = user.id
+            token = encode(user.id, user.email)
             render json: user, status: :created, serializer: UserSerializer
-        elsif author&.authenticate(params[:password])
-            session[:author_id] = author.id
-            render json: author, status: :created
         else
             render json: {errors: "Invalid username or password"}, status: :unauthorized
         end
@@ -49,22 +42,19 @@ class SessionsController < ApplicationController
 
     # DELETE '/logout'
     def logout
-        author = Author.find_by(id: session[:user_id])
         user = User.find_by(id: session[:user_id])
 
         if user 
             session.delete :user_id
             head :no_content
-        elsif author
-            session.delete :author_id
-            head :no_content
+        else
+            render json: { error: "You are not logged in"}, status: :unprocessable_entity
         end
     end
 
     # GET '/articles'
     def index
         user = User.find_by(id: session[:user_id])
-        author = Author.find_by(id: session[:user_id])
 
         articles = Article.all
         art = articles.to_json(
@@ -76,11 +66,6 @@ class SessionsController < ApplicationController
         if user 
           session[:user_id] = user.id
           render json: art, status: :ok
-
-        elsif author
-            session[:author_id] = author.id
-            render json: art, status: :ok
-
         else
           render json: { error: "You are not logged in"}, status: :unprocessable_entity
         end
