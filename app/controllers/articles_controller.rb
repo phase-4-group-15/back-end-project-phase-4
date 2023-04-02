@@ -44,14 +44,25 @@ class ArticlesController < ApplicationController
     # end
   
   
+    # def create
+    #   article = Article.new(article_params)
+    #   if article.save
+    #     render json: article, status: :created
+    #   else
+    #     render json: { errors: article.errors.full_messages }, status: :unprocessable_entity
+    #   end
+    # end
+
     def create
-      article = Article.new(article_params)
+      article = Article.new(title: params[:title], category: params[:category], description: params[:description], image: params[:image], user_id: params[:userId])
+    
       if article.save
         render json: article, status: :created
       else
         render json: { errors: article.errors.full_messages }, status: :unprocessable_entity
       end
     end
+    
 
     def update
       article = Article.find_by(id: params[:id])
@@ -68,13 +79,23 @@ class ArticlesController < ApplicationController
   
     def destroy
       article = Article.find_by(id: params[:id])
-      if article && article.user == current_user
+      if article
         article.destroy
         head :no_content
       else
-        render json: { error: " unauthorized: Not your article " }, status: :not_found
+        render json: { error: "Article not found" }, status: :not_found
       end
     end
+    
+    # def destroy
+    #   article = Article.find_by(id: params[:id])
+    #   if article && article.user == current_user
+    #     article.destroy
+    #     head :no_content
+    #   else
+    #     render json: { error: " unauthorized: Not your article " }, status: :not_found
+    #   end
+    # end
   
     def like
       article = Article.find_by(id: params[:id])
@@ -101,11 +122,10 @@ class ArticlesController < ApplicationController
     private
   
     def article_params
-      params.require(:article).permit(:title, :description, :image, :category, :user_id)
+      # params.require(:article).permit(:title, :description, :image, :category, :user_id)
+      params.permit(:title, :category, :description, :image, :userId)
     end
   
-   
-    
   end
   
 

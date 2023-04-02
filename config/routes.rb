@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   post '/login', to: "sessions#create"
   delete '/logout', to: "sessions#destroy"
   
-
+# articles
   post '/articles', to: 'articles#create'
   get '/articles', to: 'articles#index'
   get '/articles/:id', to: 'articles#show'
@@ -15,6 +15,13 @@ Rails.application.routes.draw do
   post '/articles/:id/like', to: 'articles#like'
   post '/articles/:id/dislike', to: 'articles#dislike'
   
+  # reviews
+  get '/reviews', to: 'reviews#index'
+get '/reviews/:id', to: 'reviews#show'
+post '/reviews', to: 'reviews#create'
+patch '/reviews/:id', to: 'reviews#update'
+delete '/reviews/:id', to: 'reviews#destroy'
+
 
 
   # get '/me/:id', to: 'users#show'
