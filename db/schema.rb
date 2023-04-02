@@ -10,7 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_30_234705) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_02_205524) do
+  create_table "advertisements", force: :cascade do |t|
+    t.text "image", null: false
+    t.string "title", null: false
+    t.string "genre", null: false
+    t.string "release_date", null: false
+    t.integer "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_advertisements_on_user_id"
+  end
+
   create_table "articles", force: :cascade do |t|
     t.string "title", null: false
     t.text "description", null: false
@@ -57,6 +68,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_30_234705) do
     t.string "password_confirmation"
   end
 
+  add_foreign_key "advertisements", "users"
   add_foreign_key "articles", "users"
   add_foreign_key "reviews", "articles"
   add_foreign_key "reviews", "users"

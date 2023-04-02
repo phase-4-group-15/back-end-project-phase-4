@@ -2,12 +2,10 @@
 
 one:
   name: MyString
-  email: MyText
-  password_digest: MyString
-  confirm_password: MyString
+  genre: MyString
+  bio: MyString
 
 two:
   name: MyString
-  email: MyText
-  password_digest: MyString
-  confirm_password: MyString
+  genre: MyString
+  bio: MyString
