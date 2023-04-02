@@ -22,6 +22,7 @@ class ApplicationController < ActionController::API
 
     rescue_from StandardError, with: :standard_error
 
+
     # hash data into web token
     def encode(uid, email)
         payload = {
@@ -31,12 +32,12 @@ class ApplicationController < ActionController::API
                 role: 'admin'
             }
         }
-        JWT.encode(payload, ENV['task_train_key'], 'HS256')
+        JWT.encode(payload, ENV['article_key'], 'HS256')
     end
 
     # unhash the token
     def decode(token)
-        JWT.decode(token, ENV['task_train_key'], true, { algorithm: 'HS256' })
+        JWT.decode(token, ENV['article_key'], true, { algorithm: 'HS256' })
     end
 
     # verify authorization headers
