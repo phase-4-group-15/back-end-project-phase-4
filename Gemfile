@@ -19,6 +19,11 @@ gem 'active_model_serializers'
 
 gem 'faker'
 
+gem 'jwt'
+
+gem 'dotenv-rails'
+
+
 # Use Redis adapter to run Action Cable in production
 # gem "redis", "~> 4.0"
 

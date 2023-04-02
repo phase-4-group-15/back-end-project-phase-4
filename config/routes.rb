@@ -5,10 +5,11 @@ Rails.application.routes.draw do
   # get '/me/:id', to: 'users#show'
   post '/signup', to: 'sessions#create'
   post '/me', to: 'sessions#show'
-  post '/login', to: 'sessions#login'
+  post '/login', to: 'users#login'
   delete '/logout', to: 'sessions#logout'
   get '/articles', to: 'sessions#index'
   get '/reviews', to: 'sessions#reviews'
+  put 'reset/:id', to: 'sessions#reset_password'
   
 
   # article
