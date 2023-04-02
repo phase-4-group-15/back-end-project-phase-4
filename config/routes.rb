@@ -15,6 +15,10 @@ Rails.application.routes.draw do
   post '/articles/:id/like', to: 'articles#like'
   post '/articles/:id/dislike', to: 'articles#dislike'
   
+  patch '/reset/:id', to: 'users#reset_password'
+
+  # verify auth
+  get '/verify', to: 'application#verify_auth'
 
 
   # get '/me/:id', to: 'users#show'

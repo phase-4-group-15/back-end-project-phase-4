@@ -21,6 +21,31 @@ class UsersController < ApplicationController
         end
     end
     
+
+    def update
+      article = Article.find_by(id: params[:id])
+      if article && article.user == current_user
+        if article.update(article_params)
+          render json: article
+        else
+          render json: { errors: article.errors.full_messages }, status: :unprocessable_entity
+        end
+      else
+        render json: { error: "Article not found or unauthorized" }, status: :not_found
+      end
+    end
+
+    def reset_password
+      user = User.find(params[:id])
+
+      if user
+        user.update(params.permit(:password))
+        render json: user, status: :created
+      else
+        render json: { error: "Not authorized"}, status: :unauthorized
+      end
+    end
+
     private
 
     def user_params
