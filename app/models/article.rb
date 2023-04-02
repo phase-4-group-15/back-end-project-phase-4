@@ -9,7 +9,7 @@ class Article < ApplicationRecord
   validates :image, presence: true
   validates :category, presence: true, inclusion: CATEGORY
 
-  validates :likes, numericality: { only_integer: true }
-  validates :dislikes, numericality: { only_integer: true }, allow_nil: true, default: 0
+  # validates :likes, numericality: { only_integer: true }
+  # validates :dislikes, numericality: { only_integer: true }
 
 end
