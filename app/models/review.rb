@@ -4,5 +4,4 @@ class Review < ApplicationRecord
 
   # validates_associated :article, :user
 
-  validates :comment, :rating, presence: true
 end
