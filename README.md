@@ -279,6 +279,10 @@ You can setup this repository by following this manual
    http://localhost:3000/login or use "Thunder Client" VS Code Extension
 
       or follow the deployment link below
+      
+    https://api-article254.onrender.com/articles
+
+    NB// you will only be able to view articles data when logged in
    ```
 
 
