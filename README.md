@@ -31,7 +31,7 @@ This project conform to the following set of guidelines:
 
 
 ### Models
-You need to create the following relationships:
+The following relationships were created:
 
 - A `Article` has many `User`s through `Reviews`
 - A `User` has many `Articles`s through `Reviews`
@@ -149,8 +149,6 @@ Return JSON data in the format below:
   "updated_at": "2023-04-03T04:50:42.706Z"
 }
 ```
-
-
 
 
 
@@ -292,4 +290,5 @@ This project was contributed to by:
 * [Elvis Kericho](https://github.com/kericho)
 
 ## License
-* This project is licensed under MIT License# back-end-project-phase-4
+* This project is licensed under MIT License
+
