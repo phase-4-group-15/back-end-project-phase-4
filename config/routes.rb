@@ -21,16 +21,10 @@ Rails.application.routes.draw do
   # verify auth
   get '/verify', to: 'application#verify_auth'
 
+  
   # advertisement
   get '/ad/:id', to: 'advertisements#show'
 
-  # author
-  get '/authors', to: 'authors#author_index'
-  get '/authors/articles', to: 'authors#index'
-  get '/authors/articles/:id', to: 'authors#show'
-  post '/authors/signup', to: 'authors#create'
-  post '/authors/login', to: 'authors#login'
-  delete '/authors/logout', to: 'authors#logout'
 
   # reviews
   resources :reviews
