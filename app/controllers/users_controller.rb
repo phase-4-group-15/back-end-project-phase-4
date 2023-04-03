@@ -20,6 +20,7 @@ class UsersController < ApplicationController
           render json: { error: "Not authorized" }, status: :unauthorized
         end
     end
+<<<<<<< HEAD
     
 
     def update
@@ -38,6 +39,12 @@ class UsersController < ApplicationController
     def reset_password
       user = User.find(params[:id])
 
+=======
+
+    # patch '/reset/:id' 
+    def reset_password
+      user = User.find_by(username: params[:username])
+>>>>>>> Shukri-rails
       if user
         user.update(params.permit(:password))
         render json: user, status: :created
@@ -46,6 +53,12 @@ class UsersController < ApplicationController
       end
     end
 
+<<<<<<< HEAD
+=======
+   
+
+
+>>>>>>> Shukri-rails
     private
 
     def user_params

@@ -7,8 +7,12 @@ Rails.application.routes.draw do
   delete '/logout', to: "sessions#destroy"
   patch '/reset/:id', to: 'users#reset_password'
   
+<<<<<<< HEAD
 
   # articles
+=======
+# articles
+>>>>>>> Shukri-rails
   post '/articles', to: 'articles#create'
   get '/articles', to: 'articles#index'
   get '/articles/:id', to: 'articles#show'
@@ -17,6 +21,7 @@ Rails.application.routes.draw do
   post '/articles/:id/like', to: 'articles#like'
   post '/articles/:id/dislike', to: 'articles#dislike'
   
+<<<<<<< HEAD
 
   # verify auth
   get '/verify', to: 'application#verify_auth'
@@ -32,7 +37,21 @@ Rails.application.routes.draw do
   post '/authors/login', to: 'authors#login'
   delete '/authors/logout', to: 'authors#logout'
 
+=======
+>>>>>>> Shukri-rails
   # reviews
-  resources :reviews
+  get '/reviews', to: 'reviews#index'
+get '/reviews/:id', to: 'reviews#show'
+post '/reviews', to: 'reviews#create'
+patch '/reviews/:id', to: 'reviews#update'
+delete '/reviews/:id', to: 'reviews#destroy'
+
+# reset password
+patch '/reset/:username', to: 'users#reset_password'
+
+# advertisement
+get '/advertisement', to: 'advertisements#index'
+post '/advertisement', to: 'advertisements#create'
+
 
 end
