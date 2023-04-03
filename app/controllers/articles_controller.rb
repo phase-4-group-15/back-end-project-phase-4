@@ -35,7 +35,7 @@ class ArticlesController < ApplicationController
   
 
   def create
-    article = Article.new(title: params[:title], category: params[:category], description: params[:description], image: params[:image], user_id: params[:userId])
+    article = Article.new(title: params[:title], category: params[:category], description: params[:description], image: params[:image], user_id: params[:user_id])
   
     if article.save
       render json: article, status: :created
@@ -94,8 +94,7 @@ class ArticlesController < ApplicationController
   private
 
   def article_params
-    # params.require(:article).permit(:title, :description, :image, :category, :user_id)
-    params.permit(:title, :category, :description, :image, :userId)
+    params.permit(:title, :category, :description, :image, :user_id)
   end
 
 end
