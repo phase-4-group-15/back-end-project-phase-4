@@ -32,20 +32,14 @@ Your project should conform to the following set of guidelines:
 ### Models
 You need to create the following relationships:
 
-- A `Restaurant` has many `Pizza`s through `RestaurantPizza`
+- A `Article` has many `reviews`s through `users`
 - A `Pizza` has many `Restaurant`s through `RestaurantPizza`
-- A `RestaurantPizza` belongs to a `Restaurant` and belongs to a `Pizza`
+- A `Review` belongs to a `user` and belongs to a `Author`
 
 Add any code needed in the model files to establish the relationships. Then, run the migrations.
 
 You are welcome to generate your own seed data to test the application.
 
-
-
-### Validations
-Add validations to the `RestaurantPizza` model:
-
-- must have a `price` between 1 and 30
 
 
 
@@ -54,7 +48,7 @@ Set up the following routes. Make sure to return JSON data in the format
 specified along with the appropriate HTTP verb.
 
 ```txt
-GET /restaurants
+GET /reviews
 ```
 
 Return JSON data in the format below:
@@ -63,130 +57,101 @@ Return JSON data in the format below:
 [
   {
     "id": 1,
-    "name": "Sottocasa NYC",
-    "address": "298 Atlantic Ave, Brooklyn, NY 11201"
+    "rating": 5,
+    "comment": "Great article!",
+    "article_id": 1,
+    "user_id": 2,
+    "created_at": "2023-04-03T04:50:43.817Z",
+    "updated_at": "2023-04-03T04:50:43.817Z"
   },
   {
     "id": 2,
-    "name": "PizzArte",
-    "address": "69 W 55th St, New York, NY 10019"
+    "rating": 4,
+    "comment": "Good read.",
+    "article_id": 2,
+    "user_id": 1,
+    "created_at": "2023-04-03T04:50:43.895Z",
+    "updated_at": "2023-04-03T04:50:43.895Z"
   }
 ]
 ```
 
 ```txt
-GET /restaurants/:id
+GET /articles
 ```
 
-If the `Restaurant` exists, return JSON data in the format below:
+If the `ARticles` exists, return JSON data in the format below:
 
 ```txt
 {
-  "id": 1,
-  "name": "Sottocasa NYC",
-  "address": "298 Atlantic Ave, Brooklyn, NY 11201",
-  "pizzas": [
-    {
-      "id": 1,
-      "name": "Cheese",
-      "ingredients": "Dough, Tomato Sauce, Cheese"
-    },
-    {
-      "id": 2,
-      "name": "Pepperoni",
-      "ingredients": "Dough, Tomato Sauce, Cheese, Pepperoni"
-    }
-  ]
-}
+    "id": 1,
+    "title": "How to Make a Perfect Cup of Coffee",
+    "description": "Learn the secrets to making a delicious cup of coffee at home.",
+    "image": "https://images.unsplash.com/photo-1511920170033-f8396924c348?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1587&q=80",
+    "category": "Food & Drink",
+    "user_id": 1,
+    "created_at": "2023-04-03T04:50:43.327Z",
+    "updated_at": "2023-04-03T04:50:43.327Z",
+    "likes": 44,
+    "dislikes": 79
+  },
+  {
+    "id": 2,
+    "title": "The Benefits of Meditation",
+    "description": "Discover how meditation can improve your mental health and well-being.",
+    "image": "https://images.unsplash.com/photo-1512438248247-f0f2a5a8b7f0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1364&q=80",
+    "category": "Self Improvement",
+    "user_id": 2,
+    "created_at": "2023-04-03T04:50:43.423Z",
+    "updated_at": "2023-04-03T04:50:43.423Z",
+    "likes": 54,
+    "dislikes": 91
+  },
 ```
 
-If the `Restaurant` does not exist, return the following JSON data, along with
+If the `Articles` does not exist, return the following JSON data, along with
 the appropriate HTTP status code:
 
 ```txt
 {
-  "error": "Restaurant not found"
+  "error": "Articles not found"
 }
 ```
 
 ```txt
-DELETE /restaurants/:id
+DELETE /article/:id
 ```
 
-If the `Restaurant` exists, it should be removed from the database, along with
-any `RestaurantPizza`s that are associated with it (a `RestaurantPizza` belongs
-to a `Restaurant`, so you need to delete the `RestaurantPizza`s before the
-`Restaurant` can be deleted).
 
-After deleting the `Restaurant`, return an _empty_ response body, along with the
-appropriate HTTP status code.
 
-If the `Restaurant` does not exist, return the following JSON data, along with
+If the `Article` does not exist, return the following JSON data, along with
 the appropriate HTTP status code:
 
 ```txt
 {
-  "error": "Restaurant not found"
+  "error": "Article not found"
 }
 ```
 
 ```txt
-GET /pizzas
+GET /me
 ```
 
 Return JSON data in the format below:
 
 ```txt
-[
-  {
-    "id": 1,
-    "name": "Cheese",
-    "ingredients": "Dough, Tomato Sauce, Cheese"
-  },
-  {
-    "id": 2,
-    "name": "Pepperoni",
-    "ingredients": "Dough, Tomato Sauce, Cheese, Pepperoni"
-  }
-]
-```
-
-```txt
-POST /restaurant_pizzas
-```
-
-This route should create a new `RestaurantPizza` that is associated with an
-existing `Pizza` and `Restaurant`. It should accept an object with the following
-properties in the body of the request:
-
-```txt
 {
-  "price": 5,
-  "pizza_id": 1,
-  "restaurant_id": 3
+  "id": 3,
+  "username": "muigai",
+  "email": "muigai@gmail.com",
+  "password_digest": "$2a$12$aPGd6ELhPyOnCjnR33FUT.v5Spz8JAYMwul3Xwlza3aYVuiOjtemy",
+  "bio": "Is it not meningitis?",
+  "created_at": "2023-04-03T04:50:42.706Z",
+  "updated_at": "2023-04-03T04:50:42.706Z"
 }
 ```
 
-If the `RestaurantPizza` is created successfully, send back a response with the data
-related to the `Pizza`:
 
-```txt
-{
-  "id": 1,
-  "name": "Cheese",
-  "ingredients": "Dough, Tomato Sauce, Cheese"
-}
-```
-
-If the `RestaurantPizza` is **not** created successfully, return the following
-JSON data, along with the appropriate HTTP status code:
-
-```txt
-{
-  "errors": ["validation errors"]
-}
-
-```
 
 
 
@@ -328,4 +293,4 @@ This project was contributed to by:
 * [Elvis Kericho](https://github.com/kericho)
 
 ## License
-* This project is licensed under MIT License
+* This project is licensed under MIT License# back-end-project-phase-4
