@@ -27,18 +27,27 @@ class ApplicationController < ActionController::API
         save_user(token)
     end
   end
-  
+
+#      # rescue all common errors
+#   def standard_error(exception)
+#      app_response(message: 'failed', data: { info: exception.message }, status: :unprocessable_entity)
+#   end
+
+#      # rescue all common errors
+#   def standard_error(exception)
+#      app_response(message: 'failed', data: { info: exception.message }, status: :unprocessable_entity)
+#   end
 end
 
 
   # rescue_from StandardError, with: :standard_error
 
-  # def app_response(message: 'success', status: 200, data: nil)
-  #     render json: {
-  #         message: message,
-  #         data: data
-  #     }, status: status
-  # end
+  def app_response(message: 'success', status: 200, data: nil)
+      render json: {
+          message: message,
+          data: data
+      }, status: status
+  end
   
   #  # store user id in session
   #  def save_user(id)
