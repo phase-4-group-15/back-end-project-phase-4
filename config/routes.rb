@@ -22,7 +22,8 @@ post '/reviews', to: 'reviews#create'
 patch '/reviews/:id', to: 'reviews#update'
 delete '/reviews/:id', to: 'reviews#destroy'
 
-
+# reset password
+patch '/reset/:username', to: 'users#reset_password'
 
   # get '/me/:id', to: 'users#show'
   # post '/users/signup', to: 'users#create'

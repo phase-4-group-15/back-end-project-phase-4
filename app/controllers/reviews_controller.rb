@@ -14,7 +14,7 @@ class ReviewsController < ApplicationController
       if review.save
         render json: review, status: :created
       else
-        render json: { error: review.errors.full_messages.join(', ') }, status: :unprocessable_entity
+        render json: { errors: review.errors.full_messages }, status: :unprocessable_entity
       end
     end
   
