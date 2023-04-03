@@ -29,5 +29,5 @@ patch '/reset/:username', to: 'users#reset_password'
 get '/advertisement', to: 'advertisements#index'
 post '/advertisement', to: 'advertisements#create'
 
-resource :advertisements
+
 end
