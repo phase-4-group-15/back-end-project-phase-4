@@ -29,6 +29,7 @@ Rails.application.routes.draw do
   get '/verify', to: 'application#verify_auth'
 
   # advertisement
-  get '/ad/:id', to: 'advertisements#show'
+  get '/advertisements', to: 'advertisements#index'
+  get '/advertisements/:id', to: 'advertisements#show'
 
 end
