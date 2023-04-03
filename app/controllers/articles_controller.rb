@@ -1,7 +1,7 @@
 class ArticlesController < ApplicationController
   before_action :require_login, except: [:index, :show, :like, :dislike, :destroy, :create ]
-  
-  
+
+
   def index
     articles = Article.all
     render json: articles
@@ -33,6 +33,8 @@ class ArticlesController < ApplicationController
     end
   end
   
+
+
 
   def create
     article = Article.new(title: params[:title], category: params[:category], description: params[:description], image: params[:image], user_id: params[:userId])
@@ -67,7 +69,7 @@ class ArticlesController < ApplicationController
       render json: { error: "Article not found" }, status: :not_found
     end
   end
-  
+
 
   def like
     article = Article.find_by(id: params[:id])
@@ -94,7 +96,7 @@ class ArticlesController < ApplicationController
   private
 
   def article_params
-    params.permit(:title, :category, :description, :image, :userId, :likes, :dislikes)
+    params.permit(:title, :category, :description, :image, :userId)
   end
 
 end

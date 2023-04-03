@@ -8,6 +8,5 @@ class Article < ApplicationRecord
   validates :description, presence: true
   validates :image, presence: true
   validates :category, presence: true, inclusion: CATEGORY
-  # validates :likes, numericality: { only_integer: true }
-  # validates :dislikes, numericality: { only_integer: true }
+  
 end

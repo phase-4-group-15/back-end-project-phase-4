@@ -5,4 +5,5 @@ class Advertisement < ApplicationRecord
     validates :title, presence: true
     validates :genre, presence: true
     validates :release_date, presence: true
+    
 end
