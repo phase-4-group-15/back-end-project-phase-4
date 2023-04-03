@@ -10,7 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_02_104115) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_03_011219) do
+  create_table "advertisements", force: :cascade do |t|
+    t.string "title"
+    t.string "content"
+    t.string "image"
+    t.integer "release_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "user_id", null: false
+    t.index ["user_id"], name: "index_advertisements_on_user_id"
+  end
+
   create_table "articles", force: :cascade do |t|
     t.string "title", null: false
     t.text "description", null: false
@@ -44,6 +55,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_02_104115) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "advertisements", "users"
   add_foreign_key "articles", "users"
   add_foreign_key "reviews", "articles"
   add_foreign_key "reviews", "users"
