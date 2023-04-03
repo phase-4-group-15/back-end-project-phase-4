@@ -24,7 +24,7 @@ module BackEndProjectPhase4
        end
     end
 
-    config.active_record.sqlite3_production_warning=false
+    # config.active_record.sqlite3_production_warning=false
 
     # Configuration for the application, engines, and railties goes here.
     #
