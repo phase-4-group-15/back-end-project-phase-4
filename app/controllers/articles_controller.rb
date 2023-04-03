@@ -69,7 +69,6 @@ class ArticlesController < ApplicationController
         render json: { error: "Article not found" }, status: :not_found
       end
     end
-    
   
   
     def like
@@ -97,7 +96,6 @@ class ArticlesController < ApplicationController
     private
   
     def article_params
-      # params.require(:article).permit(:title, :description, :image, :category, :user_id)
       params.permit(:title, :category, :description, :image, :userId)
     end
   
